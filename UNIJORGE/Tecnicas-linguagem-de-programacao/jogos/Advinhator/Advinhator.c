@@ -9,11 +9,35 @@
 
 void gotoxy(int x, int y){
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), (COORD){x-1,y-1});
-	SetCon
+}
+
+int listadechutes(int i, int *chutes){
+       int j;
+	   gotoxy(50,12);
+	   printf("LISTA DE CHUTES\r\n\r\n");
+	   for(j = 0; j < i; j++)
+	   {
+	   	   gotoxy(50,14+j);
+		   printf("[%d] %d ", j, chutes[j]);
+	   }
+	   
+	   return j;
+}
+
+//CHALLENGER ONE ADVANCED
+//Contar a quantidade de chutes pares e retornar o cont
+int contchutespar(int i, int *chutes){
+	//Desenvolva a logica.
+	
+	return contpar;
 }
 
 void telajogo(int chute, int numerosecreto){
       int i;
+      
+      //Declarando o vetor.
+      int chutes[NUMERO_DE_TENTATIVAS];
+      
 	  for(i = 1; i <= NUMERO_DE_TENTATIVAS; i++)
    	   {
 	   //Pegando chute do usuario
@@ -23,11 +47,26 @@ void telajogo(int chute, int numerosecreto){
 	   printf("Qual o seu chute?");
 	   scanf("%d", &chute);
 	   
+	   //Guardar o chute no vetor chutes
+	   chutes[i-1] = chute; 
+	   
 	   //Checando o chute
 	   if (chute == numerosecreto){
            gotoxy(50,10);
 		   printf("Parabens voce acertou o numero! \n\n");
+		   
+		   //Listar todos os chutes
+           int contchutes = listadechutes(i,chutes);
+           gotoxy(50,16+contchutes);
+		   printf("Voce chutou %d vezes.", contchutes);
+		   
+		   //Listar quantidade de chutes pares
+           int contpar = contchutespar(i,chutes);
+           gotoxy(50,17+contchutes);
+		   printf("Voce chutou %d numeros pares.", contpar);
+		   
 		   break;
+	   
 	   }else{
    		   //Checar e dar a dica
    		   gotoxy(50,10);
