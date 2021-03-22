@@ -7,18 +7,25 @@
 //Constantes
 #define NUMERO_DE_TENTATIVAS 10
 
+//Structs
+typedef struct{
+	int valor;
+	int contrep;
+	int ordem;
+} tentativa;
+
 void gotoxy(int x, int y){
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), (COORD){x-1,y-1});
 }
 
-int listadechutes(int i, int *chutes){
+int listadechutes(int i, tentativa *tentativas){
        int j;
 	   gotoxy(50,12);
 	   printf("LISTA DE CHUTES\r\n\r\n");
 	   for(j = 0; j < i; j++)
 	   {
 	   	   gotoxy(50,14+j);
-		   printf("[%d] %d ", j, chutes[j]);
+		   printf("[%d] %d - %d vezes.", j, tentativas[j].valor,tentativas[j].contrep);
 	   }
 	   
 	   return j;
@@ -26,17 +33,34 @@ int listadechutes(int i, int *chutes){
 
 //CHALLENGER ONE ADVANCED
 //Contar a quantidade de chutes pares e retornar o cont
-int contchutespar(int i, int *chutes){
+int contchutespar(int i, tentativa *tentativas){
 	//Desenvolva a logica.
+	int contpar=0;
+	int j;
 	
+	for(j=0; j<i; j++){
+		if(tentativas[j].valor%2==0){
+			contpar++;
+		}
+	}
 	return contpar;
+}
+
+//CHALLENGER TWO ADVANCED
+//Contar a quantidade de chutes repetidos e retornar o cont
+int checarepeticoes(tentativa *tentativas, int chute){
+	int repeticoes = 1;
+	
+	//Desenvolva a logica de contagem de repeticoes do chute.
+	
+	return repeticoes;
 }
 
 void telajogo(int chute, int numerosecreto){
       int i;
       
       //Declarando o vetor.
-      int chutes[NUMERO_DE_TENTATIVAS];
+      tentativa tentativas[NUMERO_DE_TENTATIVAS];
       
 	  for(i = 1; i <= NUMERO_DE_TENTATIVAS; i++)
    	   {
@@ -48,7 +72,9 @@ void telajogo(int chute, int numerosecreto){
 	   scanf("%d", &chute);
 	   
 	   //Guardar o chute no vetor chutes
-	   chutes[i-1] = chute; 
+	   tentativas[i-1].valor = chute;
+	   tentativas[i-1].ordem = i;
+	   tentativas[i-1].contrep = checarepeticoes(tentativas,chute);
 	   
 	   //Checando o chute
 	   if (chute == numerosecreto){
@@ -56,14 +82,15 @@ void telajogo(int chute, int numerosecreto){
 		   printf("Parabens voce acertou o numero! \n\n");
 		   
 		   //Listar todos os chutes
-           int contchutes = listadechutes(i,chutes);
+           int contchutes = listadechutes(i,tentativas);
            gotoxy(50,16+contchutes);
 		   printf("Voce chutou %d vezes.", contchutes);
 		   
 		   //Listar quantidade de chutes pares
-           int contpar = contchutespar(i,chutes);
+           int contpar = contchutespar(i,tentativas);
            gotoxy(50,17+contchutes);
 		   printf("Voce chutou %d numeros pares.", contpar);
+		   
 		   
 		   break;
 	   
@@ -73,13 +100,14 @@ void telajogo(int chute, int numerosecreto){
    		   printf("Voce errou, tente denovo\n");
    		   if(chute > numerosecreto) {
    		   	    gotoxy(50,12);
-			    printf("%d e maior que o numero secreto.",chute);	  
+			    printf("%d e maior que o numero secreto.",chute);
 		   }else{
 		   	  gotoxy(50,12);
 			  printf("%d e menor que o numero secreto.",chute); 
-		      gotoxy(50,15);
-			  printf("<<Aperte uma tecla para continuar>>",chute); 
-		   }	  
+ 		   }
+		   
+		   gotoxy(50,15);
+           printf("<<Aperte uma tecla para continuar>>",chute); 	  
 	   }
 	   getch();
 	   system("cls");
