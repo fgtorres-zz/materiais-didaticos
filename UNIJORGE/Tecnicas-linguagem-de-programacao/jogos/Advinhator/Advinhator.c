@@ -9,6 +9,7 @@
 
 void gotoxy(int x, int y){
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), (COORD){x-1,y-1});
+	SetCon
 }
 
 void telajogo(int chute, int numerosecreto){
