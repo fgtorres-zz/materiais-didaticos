@@ -18,19 +18,6 @@ void gotoxy(int x, int y){
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), (COORD){x-1,y-1});
 }
 
-int listadechutes(int i, tentativa *tentativas){
-       int j;
-	   gotoxy(50,12);
-	   printf("LISTA DE CHUTES\r\n\r\n");
-	   for(j = 0; j < i; j++)
-	   {
-	   	   gotoxy(50,14+j);
-		   printf("[%d] %d - %d vezes.", j, tentativas[j].valor,tentativas[j].contrep);
-	   }
-	   
-	   return j;
-}
-
 //CHALLENGER ONE ADVANCED
 //Contar a quantidade de chutes pares e retornar o cont
 int contchutespar(int i, tentativa *tentativas){
@@ -49,11 +36,31 @@ int contchutespar(int i, tentativa *tentativas){
 //CHALLENGER TWO ADVANCED
 //Contar a quantidade de chutes repetidos e retornar o cont
 int checarepeticoes(tentativa *tentativas, int chute){
-	int repeticoes = 1;
+	int repeticoes = 0;
 	
 	//Desenvolva a logica de contagem de repeticoes do chute.
+	int j;
+	for(j = 0; j < NUMERO_DE_TENTATIVAS; j++)
+	{
+		if(chute == tentativas[j].valor)
+			repeticoes++;
+	}
 	
 	return repeticoes;
+}
+
+int listadechutes(int i, tentativa *tentativas){
+       int j;
+	   gotoxy(50,12);
+	   printf("LISTA DE CHUTES\r\n\r\n");
+	   for(j = 0; j < i; j++)
+	   {
+   		   tentativas[j].contrep = checarepeticoes(tentativas,tentativas[j].valor);
+	   	   gotoxy(50,14+j);
+		   printf("[%d] %d - %d vezes.", j, tentativas[j].valor,tentativas[j].contrep);
+	   }
+	   
+	   return j;
 }
 
 void telajogo(int chute, int numerosecreto){
