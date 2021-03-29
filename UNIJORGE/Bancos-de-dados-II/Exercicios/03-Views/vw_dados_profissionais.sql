@@ -20,6 +20,6 @@ WHERE
    a.codproj = p.codproj AND
    emp.codempresa = p.codempresa AND
    c.codcid = emp.codcid AND
-   est.codest = c.codest
+   est.codest = c.codest;
    
    
