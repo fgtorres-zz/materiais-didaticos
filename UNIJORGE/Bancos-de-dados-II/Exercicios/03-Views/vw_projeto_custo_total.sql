@@ -6,10 +6,12 @@
     (salario.salario_hora * alocacao.qtdhoras) AS salario_total,
     alocacao.qtdhoras,
     projeto.nome AS nome_projeto,
+
     (SELECT SUM(ssub.salario_hora*asub.qtdhoras) FROM alocacao as asub, empregado as esub, salario as ssub 
 	WHERE asub.codproj = projeto.codproj AND
 	      asub.codemp = esub.codemp AND
 	      esub.codprof = ssub.codprof) as "custo total",
+
     empresa.nome AS empresa,
     cidade.nome AS cidade,
     estado.nome AS estado
