@@ -9,6 +9,10 @@ BEGIN
         SELECT  REPLACE(resultado, 'É', 'E') INTO resultado;
         SELECT  REPLACE(resultado, 'Ó', 'O') INTO resultado;
         SELECT  REPLACE(resultado, 'Õ', 'O') INTO resultado;
+        SELECT  REPLACE(resultado, 'Ç', 'C') INTO resultado;
+        SELECT  REPLACE(resultado, 'Á', 'A') INTO resultado;
+        SELECT  REPLACE(resultado, 'À', 'A') INTO resultado;
+        SELECT  REPLACE(resultado, 'Ú', 'U') INTO resultado;
 
         RETURN resultado;
 
