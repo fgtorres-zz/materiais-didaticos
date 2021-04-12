@@ -12,18 +12,15 @@ int main() {
 	push(&p1, 1);
 	push(&p1, 2);
 	push(&p1, 3);
-	push(&p2, 1);
-	push(&p2, 2);
-	push(&p2, 3);	
+	push(&p2, 3);
+	push(&p2, 7);
+	push(&p2, 8);
+	push(&p2, 10);	
 	
-	//Listas sao iguais.
-	if(compara_pilhas(p1,p2) == 1){
-		printf("\r\n P1 e igual a P2. \r\n");
-	}else{
-		printf("\r\n P1 nao e igual a P2. \r\n");
-	}
+	empilha_pilha( p1,  p2);
 	
 	//Imprimir a pilha 1.
-	//imprime_pilha(p1);
+	imprime_pilha(p1);
+	
 	return 0;
 }
