@@ -59,4 +59,15 @@ void imprime_pilha(tp_pilha p){
     }
 }
 
+int compara_pilhas(tp_pilha p1, tp_pilha p2){
+	int validacao_igual = 0;
+	
+	//Comparar a p1 e a p2 utilizando os metodos do
+	// pilha.h e retornando 1 se forem iguais e 0 se
+	// forem diferentes.
+	
+	
+	return validacao_igual;
+}
+
 #endif
