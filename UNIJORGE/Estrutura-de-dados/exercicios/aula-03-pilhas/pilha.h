@@ -78,8 +78,30 @@ int compara_pilhas(tp_pilha p1, tp_pilha p2){
 	return 1;
 }
 
-void empilha_pilha(tp_pilha p1, tp_pilha p2){
-
+int empilha_pilha(tp_pilha *p1, tp_pilha *p2){
+	tp_item e;
+	tp_pilha paux;
+	inicializa_pilha(&paux);
+	
+	//Checar se a altura das pilhas e menor que MAX;
+	if(altura_pilha(p1)+altura_pilha(p2) > MAX) return 0;
+	
+    printf("\n");
+    
+	//Empilhar a p2 na paux
+    while (!pilha_vazia(p2)){
+         pop(p2, &e);
+         push(&paux, e);
+    }
+    
+    //Empilhar a paux na p1
+    while (!pilha_vazia(&paux)){
+         pop(&paux, &e);
+         push(p1, e);
+    }
+    
+    return 1;
+    
 }
 
 #endif

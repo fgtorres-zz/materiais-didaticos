@@ -17,7 +17,7 @@ int main() {
 	push(&p2, 8);
 	push(&p2, 10);	
 	
-	empilha_pilha( p1,  p2);
+	empilha_pilha( &p1, &p2);
 	
 	//Imprimir a pilha 1.
 	imprime_pilha(p1);
