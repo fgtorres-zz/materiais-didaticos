@@ -12,7 +12,7 @@
  Target Server Version : 90426
  File Encoding         : 65001
 
- Date: 08/04/2021 20:59:38
+ Date: 26/04/2021 06:02:59
 */
 
 
@@ -472,6 +472,102 @@ BEGIN
        RETURN 'Inativo';
     END IF;
 
+END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for isdataadmissao
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."isdataadmissao"("codigoemp" int4);
+CREATE OR REPLACE FUNCTION "public"."isdataadmissao"("codigoemp" int4)
+  RETURNS "pg_catalog"."text" AS $BODY$
+DECLARE dataadmissao DATE;
+BEGIN
+
+    -- Buscamos a data de admissao no banco de dados
+    SELECT c.dtadm FROM contratacao as c 
+    WHERE 
+       c.codemp = $1 AND 
+       DATE_PART('DAY',c.dtadm) = DATE_PART('DAY',CURRENT_DATE) AND
+       DATE_PART('MONTH',c.dtadm) = DATE_PART('MONTH',CURRENT_DATE)
+       INTO dataadmissao;
+
+    -- Avaliamos se o funcionario estava ativo ou desligado
+    IF dataadmissao IS NULL THEN
+       SELECT c.dtadm FROM contratacao as c  WHERE c.codemp = $1  INTO dataadmissao;
+       RETURN CONCAT('O aniversario de admissao é na data ',TO_CHAR(dataadmissao,'DD/MM/YYYY'), '.') as resultado;
+    ELSE
+       RETURN 'Parabens' as resultado;
+    END IF;
+
+    --------------------------------------------------------
+    --IF <condicao> THEN
+	--<comando>
+    --END IF;
+
+    --------------------------------------------------------
+    --IF <condicao> THEN
+	--<comando>
+    --ELSIF THEN
+	--<comando>
+    --ELSE
+	--<comando>
+    --END IF;
+
+END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for isfuncionariocaro
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."isfuncionariocaro"("codigoproj" int4);
+CREATE OR REPLACE FUNCTION "public"."isfuncionariocaro"("codigoproj" int4)
+  RETURNS "pg_catalog"."text" AS $BODY$
+DECLARE nomeprojeto TEXT;
+DECLARE empregado TEXT;
+BEGIN
+
+    -- 
+    SELECT nome FROM projeto WHERE codproj = $1 INTO nomeprojeto;
+
+    SELECT nome FROM vw_projeto_custo_total
+    WHERE 
+       nome_projeto LIKE nomeprojeto
+    ORDER BY
+       salario_total
+    DESC LIMIT 1 INTO empregado;
+
+    RETURN empregado;
+END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+-- ----------------------------
+-- Function structure for isfuncionariocaro
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."isfuncionariocaro"("codigoproj" bpchar);
+CREATE OR REPLACE FUNCTION "public"."isfuncionariocaro"("codigoproj" bpchar)
+  RETURNS "pg_catalog"."text" AS $BODY$
+DECLARE nomeprojeto TEXT;
+DECLARE empregado TEXT;
+BEGIN
+
+    -- 
+    SELECT nome FROM projeto WHERE codproj = $1 INTO nomeprojeto;
+
+    SELECT nome FROM vw_projeto_custo_total
+    WHERE 
+       nome_projeto LIKE nomeprojeto
+    ORDER BY
+       salario_total
+    DESC LIMIT 1 INTO empregado;
+
+    RETURN empregado;
 END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
