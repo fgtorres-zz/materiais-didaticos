@@ -3,6 +3,7 @@ RETURNS INT AS $$
 DECLARE x RECORD;
 BEGIN
 
+
    FOR x IN SELECT codemp,SUM(salario_total) as salario_total FROM vw_projeto_custo_total GROUP BY codemp
    LOOP
 
