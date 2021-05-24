@@ -20,6 +20,8 @@ int main()
 	
 	//Listar os valores da lista.
 	imprime_listase(l1);
-	printf("\r\n \r\n A lista possui %d elementos.\r\n\r\n", tamanho_listase(l1));
+	printf("\r\n \r\n A lista possui %d elementos.\r\n", tamanho_listase(l1));
+	printf("\r\n \r\n A lista possui %d elementos maiores que 12.\r\n\r\n", qtde_nos_maiores(l1, 12));
+	
 	return 0;
 }

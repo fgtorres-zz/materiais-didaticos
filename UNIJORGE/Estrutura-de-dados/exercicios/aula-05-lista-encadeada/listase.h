@@ -133,6 +133,19 @@ int insere_listase_em_ordem(tp_listase **lista, tp_item e){
     return 1;
 }
 
+int qtde_nos_maiores (tp_listase *lista, tp_item n){
+	int cont=0;
+	tp_listase *atu;
+	atu = lista;
+	
+	while (atu!=NULL) {
+		if(atu->info > n)
+			cont++;
+		atu = atu -> prox;
+	}
+	
+	return cont;
+}
 
 #endif //LISTASE_LIBRARY_H
 
