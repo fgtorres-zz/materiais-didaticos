@@ -147,5 +147,24 @@ int qtde_nos_maiores (tp_listase *lista, tp_item n){
 	return cont;
 }
 
+int listase_igual (tp_listase *l1, tp_listase *l2){
+	
+	tp_listase *atu1, *atu2;
+	atu1=l1;
+	atu2=l2;
+	
+	if(tamanho_listase(atu1) != tamanho_listase(atu2)) return 0;
+	
+	while (atu1!=NULL) {
+		if(atu1->info !=atu2->info)
+			return 0;
+		
+		atu1 = atu1 -> prox;
+		atu2 = atu2-> prox;
+	}
+	
+	return 1;
+}
+
 #endif //LISTASE_LIBRARY_H
 
