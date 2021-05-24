@@ -12,11 +12,14 @@ int main()
 		printf("Nossa lista esta vazia.");
 		
 	//Inserindo 10 na lista.
-	insere_listase_no_fim(&l1, 10);
-	insere_listase_no_fim(&l1, 15);
+	insere_listase_em_ordem(&l1, 10);
+	insere_listase_em_ordem(&l1, 15);
+	insere_listase_em_ordem(&l1, 14);
+	insere_listase_em_ordem(&l1, 20);
+	insere_listase_em_ordem(&l1, 2);
 	
 	//Listar os valores da lista.
 	imprime_listase(l1);
-	
+	printf("\r\n \r\n A lista possui %d elementos.\r\n\r\n", tamanho_listase(l1));
 	return 0;
 }

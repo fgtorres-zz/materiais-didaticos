@@ -108,6 +108,30 @@ void destroi_listase(tp_listase **l){
 	*l=NULL;
 }
 
+//Aula de pratica.
+int insere_listase_em_ordem(tp_listase **lista, tp_item e){
+	    tp_listase *novo_no, *atu, *ant;
+    novo_no=aloca_listase(); 
+    
+	if(novo_no==NULL) return 0; 
+	
+    novo_no->info= e;
+    atu=*lista;
+    ant=NULL;
+    //laço para percorrer a lista encadeada enquanto não chegar no fim
+    while((atu!=NULL)&&(atu->info < novo_no->info)){
+        ant=atu;
+        atu=atu->prox;
+    }
+    if (ant==NULL){// inserir antes do primeiro
+        *lista=novo_no;
+    }
+    else{
+        ant->prox=novo_no;
+    }
+    novo_no->prox=atu;
+    return 1;
+}
 
 
 #endif //LISTASE_LIBRARY_H
